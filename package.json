@@ -1,0 +1,27 @@
+{
+  "name": "skyscraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-lord/skyscraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k-lord/skyscraper/issues"
+  },
+  "homepage": "https://github.com/k-lord/skyscraper#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "mongojs": "^3.1.0",
+    "morgan": "^1.9.1"
+  }
+}
