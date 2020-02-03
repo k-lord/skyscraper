@@ -56,45 +56,47 @@ app.get("/scrape", function (req, res) {
                     title: title,
                     link: `https://news.sky.com${link}`
                 },
-                function(err, inserted) {
-                    if (err) {
-                        console.log(err);
-                        res.send(err);
-                    } else {
-                        console.log(inserted);
-                    }
-                });
+                    function (err, inserted) {
+                        if (err) {
+                            console.log(err);
+                            res.send(err);
+                        } else {
+                            console.log(inserted);
+                        }
+                    });
             };
-        });       
+        });
     });
     res.send("scrape complete");
 });
 
 // Route to 'GET' headline by ID
-app.get("/find-news/:id", function(req, res) {
-    db.scrapedData.find({_id:req.params.id}, function(err, found) {
+app.get("/find-news/:id", function (req, res) {
+    db.scrapedData.find({ _id: req.params.id }, function (err, found) {
         if (err) {
             console.log(err);
             res.send(err);
         } else {
             res.json(found);
         }
-    })
-})
+    });
+});
+
+
 
 // Clear the 'scrapedData' collection from mongoDB
-app.get("/clear-news", function(req, res) {
-    db.scrapedData.remove({}, function(error, response) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      }
-      else {
-        console.log(response);
-        res.send(response);
-      }
+app.get("/clear-news", function (req, res) {
+    db.scrapedData.remove({}, function (error, response) {
+        if (error) {
+            console.log(error);
+            res.send(error);
+        }
+        else {
+            console.log(response);
+            res.send(response);
+        }
     });
-  });
+});
 
 // Listen on port 3000
 app.listen(3000, function () {

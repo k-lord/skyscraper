@@ -23,11 +23,21 @@ h4 {
 
 .title {
     font-family: 'Fjalla One', sans-serif;
-    margin-bottom: 1em;
     color: black;
     font-size: 1.5em;
 }
 
-.btn {
-    margin-top: 1em;
+.title:hover {
+    color: teal;
+    text-decoration: none;
+}
+
+.title:visited {
+    color: midnightblue;
+}
+
+.headline-body {
+    display:flex;
+    justify-content: space-between;
+    
 }
