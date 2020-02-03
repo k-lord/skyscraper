@@ -16,7 +16,7 @@ app.use(express.static("public"));
 
 // Database Config
 var databaseUrl = "skyscraper";
-var collections = ["scrapedData"];
+var collections = ["scrapedData", "savedArticles", "comments"];
 
 var db = mongojs(databaseUrl, collections);
 
@@ -78,11 +78,10 @@ app.get("/find-news/:id", function (req, res) {
             res.send(err);
         } else {
             res.json(found);
+            console.log(found);
         }
     });
 });
-
-
 
 // Clear the 'scrapedData' collection from mongoDB
 app.get("/clear-news", function (req, res) {
@@ -97,6 +96,24 @@ app.get("/clear-news", function (req, res) {
         }
     });
 });
+
+// Route to 'GET' all savedArticles documents in mongoDB
+app.get("/saved-articles", function (req, res) {
+    db.savedArticles.find({}, function (err, articles) {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.json(articles);
+        }
+    });
+});
+
+// Route to 'POST' new document into savedArticles collection in mongoDB
+app.post("/save", function (req, res) {
+    //console.log(req.body);
+
+})
 
 // Listen on port 3000
 app.listen(3000, function () {
