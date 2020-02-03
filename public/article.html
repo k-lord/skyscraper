@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Google Fonts-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Abril+Fatface|Alfa+Slab+One|Arvo|Assistant|Bitter|Fjalla+One|Overpass|Zilla+Slab&display=swap"
+        rel="stylesheet">
+    <!--CSS Stylesheet-->
+    <link rel="stylesheet" href="./style.css">
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--Javascript-->
+    <script src="./app.js"></script>
+    <title>Skyscraper - Saved Articles</title>
+</head>
+
+<body>
+
+    <!--Nav Bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler1"
+            aria-controls="navbarToggler1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">SKYSCRAPER</a>
+        <!--Hamburger Toggle / Collapsable Links based on media screen query-->
+        <div class="collapse navbar-collapse" id="navbarToggler1">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/saved-articles">Saved Articles <span class="sr-only">(current)</span></a>
+                </li>
+        </div>
+    </nav>
+
+    <h1>SKYSCRAPER</h1>
+    <h4>Web-scraping <a id="sky-news-heading" href="https://news.sky.com/">Sky News</a> one article at a time.</h4>
+
+    <div class="container" id="saved-container"></div>
+
+</body>
+
+</html>

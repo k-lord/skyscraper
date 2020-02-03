@@ -6,11 +6,12 @@ h1 {
     font-size: 4em;
 }
 
-h4 {
+h4, #sky-news-heading {
     text-align: center;
     font-family: 'Assistant', sans-serif;
     font-style: italic;
     margin-bottom: 1.25em;
+    color: black;
 }
 
 .card {
@@ -27,14 +28,16 @@ h4 {
     font-size: 1.5em;
 }
 
-.title:hover {
+.title:visited {
+    color: midnightblue;
+}
+
+.title:hover, #sky-news-heading:hover {
     color: teal;
     text-decoration: none;
 }
 
-.title:visited {
-    color: midnightblue;
-}
+
 
 .headline-body {
     display:flex;

@@ -1,5 +1,6 @@
 // Dependencies
 var express = require("express");
+var path = require("path");
 var mongojs = require("mongojs");
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -25,6 +26,16 @@ db.on("error", function (error) {
 });
 
 // Routes
+
+// HTML Route for index.html
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+// HTML Route for article.html
+app.get("/saved-articles", function (req, res) {
+    res.sendFile(path.join(__dirname, "/public/article.html"));
+});
 
 // Route to 'GET' all documents in the 'scrapedData' collection in MongoDB
 app.get("/all", function (req, res) {
@@ -98,7 +109,7 @@ app.get("/clear-news", function (req, res) {
 });
 
 // Route to 'GET' all savedArticles documents in mongoDB
-app.get("/saved-articles", function (req, res) {
+app.get("/saved/", function (req, res) {
     db.savedArticles.find({}, function (err, articles) {
         if (err) {
             console.log(err);

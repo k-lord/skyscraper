@@ -62,9 +62,6 @@ function displayScrapeResults(scrapedData) {
         $("#headline-container").append(card);
         cardId++;
     });
-
-    //console.log(scrapedData);
-
 };
 
 
