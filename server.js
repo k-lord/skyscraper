@@ -109,7 +109,7 @@ app.get("/clear-news", function (req, res) {
 });
 
 // Route to 'GET' all savedArticles documents in mongoDB
-app.get("/saved/", function (req, res) {
+app.get("/saved", function (req, res) {
     db.savedArticles.find({}, function (err, articles) {
         if (err) {
             console.log(err);
