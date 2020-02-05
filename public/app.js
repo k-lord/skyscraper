@@ -1,36 +1,24 @@
 $(document).ready(function () {
 
     // Display all of the scraped articles in container div
-    $.getJSON("/all", function (data) {
-        displayScrapeResults(data);
-    });
+    getArticles();
+    //getSaved();
 
-    // On-Click event to insert article data as documents into savedArticle collection when user clicks 'Save Article' button
+    // On-Click event to update document's saved value to true
     $(document).on('click', 'button[data-id]', function (e) {
         var savedId = $(this).attr('data-id');
         console.log("button's id: " + savedId);
 
-        // 'GET' document data from scrapedData by ID
-
         $.ajax({
-            type: "GET",
-            url: "/find-news/" + savedId,
+            type: "POST",
+            url: "/articles/saved/" + savedId,
+            // On successful call
             success: function (data) {
-                // Once you 'GET' data by ID, 'POST' article information to 'savedArticles' collection in MongoDB
-                console.log(data);
-                $.ajax({
-                    type: "POST",
-                    url: "/save",
-                    data: {
-                        dataType: JSON,
-                        data: {
-                            title: data.title,
-                            link: data.link,
-                        }
-                    }
-                })
+                console.log("you saved an article!")
             }
         });
+
+
 
     });
 
@@ -38,30 +26,61 @@ $(document).ready(function () {
 
 
 // Function for displaying documents from scrapedData collection onto index.html
-function displayScrapeResults(scrapedData) {
+function displayScrapeResults(data) {
     // Clear the container
     $("#headline-container").empty();
 
-    // Loop through each document in the scrapedData collection and append as cards onto index.html
-    scrapedData.forEach(function (headline) {
 
-        var cardId = 1;
-        var card = $("<div>").addClass("card").attr("id", "card-" + cardId);
-        var cardbody = $("<div>").addClass("card-body headline-body").attr("id", "card_body-" + cardId);
+    for (var i = 0; i < data.length; i++) {
+
+        var card = $("<div>").addClass("card")
+        var cardbody = $("<div>").addClass("card-body headline-body");
 
         card.append(cardbody);
         cardbody.append(
-            $("<a>").addClass("title").attr("href", headline.link).text(headline.title),
+            $("<a>").addClass("title").attr("href", `https://news.sky.com${data[i].link}`).text(data[i].title),
             $("<button>").addClass("btn btn-light save")
                 .attr("type", "button")
-                .attr("id", "button" + cardId)
                 .text("Save Article")
-                .attr("data-id", headline._id)
+                .attr("data-id", data[i]._id)
         );
 
         $("#headline-container").append(card);
-        cardId++;
+    }
+
+};
+
+
+
+
+
+
+
+function displaySaved(savedArticles) {
+
+
+
+
+    // Add append div code right here :)
+    // Append Add Comments button and View Comments button
+};
+
+function getArticles() {
+    $.getJSON("/articles", function (data) {
+        displayScrapeResults(data);
     });
 };
+
+function getSaved() {
+    $.getJSON("/articles/saved", function (data) {
+        displaySaved(data);
+    });
+};
+
+
+
+// On click event for add comments creates bootstrap modal pop up with comment form and update scrapedData collection with new comment obj
+
+// On click event for view comments that toggles accordian div underneath card header as card body
 
 
