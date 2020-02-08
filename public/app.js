@@ -2,26 +2,24 @@ $(document).ready(function () {
 
     // Display all of the scraped articles in container div
     getArticles();
-    //getSaved();
+    getSaved();
 
     // On-Click event to update document's saved value to true
     $(document).on('click', 'button[data-id]', function (e) {
         var savedId = $(this).attr('data-id');
         console.log("button's id: " + savedId);
 
+
+        // Ajax call to update article by id to 'saved: true'
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: "/articles/saved/" + savedId,
             // On successful call
             success: function (data) {
                 console.log("you saved an article!")
             }
         });
-
-
-
     });
-
 });
 
 
@@ -30,7 +28,7 @@ function displayScrapeResults(data) {
     // Clear the container
     $("#headline-container").empty();
 
-
+    // Loop through all articles scraped from Sky News and for each article create a card and append to index.html
     for (var i = 0; i < data.length; i++) {
 
         var card = $("<div>").addClass("card")
@@ -46,23 +44,39 @@ function displayScrapeResults(data) {
         );
 
         $("#headline-container").append(card);
-    }
-
+    };
 };
 
+function displaySaved(data) {
+
+    // Clear the container
+    $("#saved-container").empty();
 
 
+    for (var i = 0; i < data.length; i++) {
 
+        var card = $("<div>").addClass("card")
+        var cardbody = $("<div>").addClass("card-body saved-body");
 
+        card.append(cardbody);
+        cardbody.append(
+            $("<a>").addClass("title").attr("href", `https://news.sky.com${data[i].link}`).text(data[i].title),
+            $("<button>").addClass("btn btn-light add-comment")
+                .attr("type", "button")
+                .text("Add Comment")
+                .attr("data-id", data[i]._id),
+            $("<button>").addClass("btn btn-light view-comment")
+                .attr("type", "button")
+                .text("View Comments")
+                .attr("data-id", data[i]._id),
+            $("<button>").addClass("btn btn-light remove-comment")
+                .attr("type", "button")
+                .text("Clear Article")
+                .attr("data-id", data[i]._id)
+        );
 
-
-function displaySaved(savedArticles) {
-
-
-
-
-    // Add append div code right here :)
-    // Append Add Comments button and View Comments button
+        $("#saved-container").append(card);
+    };
 };
 
 function getArticles() {
@@ -72,9 +86,11 @@ function getArticles() {
 };
 
 function getSaved() {
-    $.getJSON("/articles/saved", function (data) {
+    $.getJSON("/saved", function (data) {
         displaySaved(data);
     });
+
+
 };
 
 

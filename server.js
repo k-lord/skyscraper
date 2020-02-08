@@ -27,6 +27,8 @@ var db = require("./models");
 
 // Mongo DB Connection
 mongoose.connect("mongodb://localhost/skyscraper", { useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
+mongoose.set('debug', true);
 
 /*
 db.on("error", function (error) {
@@ -141,8 +143,10 @@ app.get("/clear-articles", function (req, res) {
 });
 
 // Route to 'GET' all savedArticles documents in mongoDB
-app.get("/articles/saved", function (req, res) {
-    db.Article.find({ saved: true }, function (err, saved) {
+app.get("/saved", function (req, res) {
+    //const saved = req.query.saved;
+
+    db.Article.find({ saved: { $exists: true } }, function (err, saved) {
         if (err) {
             console.log(err);
             res.send(err);
@@ -153,17 +157,20 @@ app.get("/articles/saved", function (req, res) {
 });
 
 // Route to update / 'POST' by id to change document's saved value from false to true
-app.post("/articles/saved/:id", function (req, res) {
-    db.Article.create(req.body)
+app.put("/articles/saved/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved : "true" } ).catch(err => console.log(err));
+    console.log("you did it!");
+    console.log(res);
+    /*db.Article.create(req.body)
         .then(function (dbArticle) {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set : {saved : true } })
         })
         .then(function (dbArticle) {
             res.json(dbArticle);
         })
         .catch(function (err) {
             res.json(err);
-        })
+        })*/
 });
 
 // Route for saving/updating an Article's associated Comments
