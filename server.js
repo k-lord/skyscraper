@@ -26,7 +26,9 @@ var db = require("./models");
 //var db = mongojs(databaseUrl, collections);
 
 // Mongo DB Connection
-mongoose.connect("mongodb://localhost/skyscraper", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/skyscraper";
+mongoose.connect(MONGODB_URI);
+//mongoose.connect("mongodb://localhost/skyscraper", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true);
 

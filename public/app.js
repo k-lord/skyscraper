@@ -57,6 +57,8 @@ function displaySaved(data) {
 
     for (var i = 0; i < data.length; i++) {
 
+        $("#modal-" + data[i]._id).modal();
+
         // assigning variables for HTML collapsing div elements for toggling the viewing of comments
         var accordion = $("<div>").addClass("accordion").attr("id", "accordion-" + data[i]._id);
         var collapseDiv = $("<div>")
