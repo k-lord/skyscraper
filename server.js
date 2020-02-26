@@ -102,7 +102,7 @@ app.get("/scrape", function (req, res) {
             };*/
         });
     });
-    res.send(response);
+    res.send(response.data);
 });
 
 // Route to 'GET' headline by ID
