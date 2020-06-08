@@ -39,8 +39,17 @@ h4, #sky-news-heading {
 
 .headline-body {
     display:flex;
+    justify-content: space-between;   
+}
+
+.card-header {
+    display:flex;
     justify-content: space-between;
-    
+}
+
+#scrape-button {
+    margin: 0 auto 0 auto;
+    width: 75%;
 }
 
 .option-btn {

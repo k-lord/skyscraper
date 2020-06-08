@@ -102,7 +102,7 @@ app.get("/scrape", function (req, res) {
             };*/
         });
     });
-    res.send(response.data);
+    res.send(response);
 });
 
 // Route to 'GET' headline by ID
@@ -130,7 +130,7 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
-// Clear the 'scrapedData' collection from mongoDB
+// Clear the 'Articles' collection from mongoDB
 app.get("/clear-articles", function (req, res) {
     db.Article.remove({}, function (error, response) {
         if (error) {
@@ -148,7 +148,7 @@ app.get("/clear-articles", function (req, res) {
 app.get("/saved", function (req, res) {
     //const saved = req.query.saved;
 
-    db.Article.find({ saved: { $exists: true } }, function (err, saved) {
+    db.Article.find({ saved: true }, function (err, saved) {
         if (err) {
             console.log(err);
             res.send(err);
@@ -159,8 +159,25 @@ app.get("/saved", function (req, res) {
 });
 
 // Route to update / 'POST' by id to change document's saved value from false to true
-app.put("/articles/saved/:id", function (req, res) {
+app.put("/articles/save/:id", function (req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { saved : "true" } ).catch(err => console.log(err));
+    console.log("you did it!");
+    console.log(res);
+    /*db.Article.create(req.body)
+        .then(function (dbArticle) {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set : {saved : true } })
+        })
+        .then(function (dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        })*/
+});
+
+// Route to update / 'POST' by id to change document's saved value from true to false
+app.put("/articles/unsave/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved : "false" } ).catch(err => console.log(err));
     console.log("you did it!");
     console.log(res);
     /*db.Article.create(req.body)
@@ -187,7 +204,9 @@ app.post("/articles/comments/:id", function (req, res) {
         .catch(function (err) {
             res.json(err);
         })
-})
+});
+
+// Route to clear 
 
 // Listen on port 3000
 app.listen(process.env.PORT || 3000, function(){
