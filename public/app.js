@@ -7,7 +7,7 @@ $(document).ready(function () {
     // getSaved();
 
     $("#scrape-button").on('click', function (e) {
-        console.log("You clicked a button")
+        clear();
         scrape();
         location.reload(true);
     })
@@ -67,6 +67,17 @@ function displayScrapeResults(data) {
         // checkSaved(buttonId);
 
     };
+};
+
+function clear() {
+    $.ajax({
+        type: "GET",
+        url: "/clear-articles",
+        // On successful call
+        success: function (response) {
+            console.log(response)
+        }
+    });
 };
 
 function scrape() {
