@@ -7,7 +7,7 @@ $(document).ready(function () {
     // getSaved();
 
     $("#scrape-button").on('click', function (e) {
-        clear();
+        // clear();
         scrape();
         location.reload(true);
     })
